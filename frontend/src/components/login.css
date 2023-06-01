@@ -1,0 +1,19 @@
+.login-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  border: 1px solid white;
+  border-radius: 5px;
+  padding: 20px 40px;
+  position: relative;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  color: black;
+  color: rgb(126, 177, 25);
+}
