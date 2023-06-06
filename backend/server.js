@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const UserModel = require("./models/register");
 const cors = require("cors");
 const url =
-  "mongodb+srv://<username><password>@crud.gfimmnh.mongodb.net/savierdb?retryWrites=true&w=majority";
+  "mongodb+srv://divijoshi0108:mongodb12345@crud.gfimmnh.mongodb.net/savierdb?retryWrites=true&w=majority";
 const app = express();
 
 app.use(cors());

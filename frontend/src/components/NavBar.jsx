@@ -13,13 +13,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { Link } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
+
+import { useContext } from 'react';
+import { UserContext } from '../contexts/UserContext';
 
 const pages = ['Home', 'Blog', 'Login'];
 const settings = ['Profile', 'New Blog', 'New Query', 'Logout'];
+
+
 const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const { username,logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +42,13 @@ const NavBar = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+  const handleLogout = () => {
+    logout(); // Call the logout function from the context
+    navigate('/signin'); // Redirect to the home page
+  };
+  const handleSettingsFunc = [()=>{},()=>{},()=>{},handleLogout]
+
+ 
 
       return (
         <AppBar style={{backgroundColor:'#ffc65c'}} position="static">
@@ -56,7 +70,7 @@ const NavBar = () => {
                   textDecoration: 'none',
                 }}
               >
-                LOGO
+               {username ? username.toUpperCase() : 'LOGO' }
               </Typography>
     
               <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -75,7 +89,7 @@ const NavBar = () => {
                   anchorEl={anchorElNav}
                   anchorOrigin={{
                     vertical: 'bottom',
-                    horizontal: 'left',
+                    horizontal: 'right',
                   }}
                   keepMounted
                   transformOrigin={{
@@ -112,7 +126,7 @@ const NavBar = () => {
                   textDecoration: 'none',
                 }}
               >
-                LOGO
+                {username}
               </Typography>
               <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                 {pages.map((page) => (
@@ -129,7 +143,7 @@ const NavBar = () => {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                    <Avatar alt={username.toUpperCase()} src="/static/images/avatar/2.jpg" />
                   </IconButton>
                 </Tooltip>
                 <Menu
@@ -148,8 +162,8 @@ const NavBar = () => {
                   open={Boolean(anchorElUser)}
                   onClose={handleCloseUserMenu}
                 >
-                  {settings.map((setting) => (
-                    <MenuItem key={setting} >
+                  {settings.map((setting,i) => (
+                    <MenuItem onClick={handleSettingsFunc[i]}  key={setting} >
                       <Typography textAlign="center">{setting}</Typography>
                     </MenuItem>
                   ))}
